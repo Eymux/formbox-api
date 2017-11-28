@@ -10,6 +10,7 @@ import { AppMain } from './app/app.main';
 import { DatabaseRouter } from './api/database.api';
 import { ConfigurationRouter } from './api/configuration.api';
 import { ConfigurationService } from './services/configuration.service';
+import { JsonConfigurationService } from './services/json.configuration.service';
 
 console.log(__dirname);
 
@@ -37,7 +38,7 @@ log.appenders
 // die injiziert werden sollen.
 const injector = ReflectiveInjector.resolveAndCreate([
   AppMain,
-  ConfigurationService,
+  { provide: ConfigurationService, useClass: JsonConfigurationService },
   { provide: 'Logger', useValue: log },
   { provide: 'Application', useValue: app },
   { provide: 'DatabaseApi', useFactory: DatabaseRouter, deps: [ 'Logger' ] },
