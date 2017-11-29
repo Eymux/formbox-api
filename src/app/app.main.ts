@@ -4,20 +4,23 @@ import * as bodyParser from 'body-parser';
 import { Router } from 'express-serve-static-core';
 import { Logger } from 'ts-log-debug';
 import * as path from 'path';
+import { SocketServer } from '../sockets/socket.server';
 
 @Injectable()
 export class AppMain {
   private app: express.Application;
   private log: Logger;
-
+  private socketServer: SocketServer;
   private db: Router;
   private config: Router;
 
   constructor( @Inject('Logger') log: Logger,
     @Inject('Application') app: express.Application,
+    socketServer: SocketServer,
     @Inject('DatabaseApi') db: Router,
     @Inject('ConfigurationApi') config: Router) {
 
+    this.socketServer = socketServer;
     this.db = db;
     this.config = config;
 
@@ -41,9 +44,7 @@ export class AppMain {
     this.app.use('/assets/fragmente', express.static(path.join(process.env.ASSETS, '/fragmente')));
     this.app.use('/assets/vorlagen', express.static(path.join(process.env.ASSETS, '/vorlagen')));
 
-    this.app.listen(this.app.get('port'), () => {
-      this.log.info(('App is running at http://localhost:%d.'), this.app.get('port'));
-    });
+    this.socketServer.start();
   }
 }
 

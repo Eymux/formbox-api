@@ -11,8 +11,7 @@ import { DatabaseRouter } from './api/database.api';
 import { ConfigurationRouter } from './api/configuration.api';
 import { ConfigurationService } from './services/configuration.service';
 import { JsonConfigurationService } from './services/json.configuration.service';
-
-console.log(__dirname);
+import { SocketServer } from './sockets/socket.server';
 
 dotenv.config();
 
@@ -38,6 +37,7 @@ log.appenders
 // die injiziert werden sollen.
 const injector = ReflectiveInjector.resolveAndCreate([
   AppMain,
+  SocketServer,
   { provide: ConfigurationService, useClass: JsonConfigurationService },
   { provide: 'Logger', useValue: log },
   { provide: 'Application', useValue: app },

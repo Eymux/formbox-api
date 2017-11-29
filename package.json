@@ -21,6 +21,7 @@
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
   },
   "dependencies": {
+    "@types/socket.io": "^1.4.31",
     "async": "^2.6.0",
     "body-parser": "^1.18.2",
     "consign": "^0.1.6",
@@ -31,8 +32,8 @@
     "passport": "^0.4.0",
     "reflect-metadata": "^0.1.10",
     "request": "^2.83.0",
-    "ts-log-debug": "^3.0.1",
-    "winston": "^2.4.0"
+    "socket.io": "^2.0.4",
+    "ts-log-debug": "^3.0.1"
   },
   "devDependencies": {
     "@types/async": "^2.0.40",
