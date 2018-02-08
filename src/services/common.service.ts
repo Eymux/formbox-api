@@ -6,10 +6,10 @@ import * as fs from 'fs';
 export class CommonService {
 
   async getAssetsFolder(): Promise<string> {
-    return process.env.ASSETS;
+    return Promise.resolve(process.env.ASSETS);
   }
 
   async encodeFileToBase64(filePath: string): Promise<string> {
-    return base64.encode(fs.readFileSync(filePath));
+    return Promise.resolve(base64.encode(fs.readFileSync(filePath)));
   }
 }

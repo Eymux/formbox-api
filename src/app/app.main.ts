@@ -22,12 +22,10 @@ export class AppMain {
   constructor( @Inject('Logger') log: Logger,
     @Inject('Application') app: express.Application,
     @Inject('DatabaseApi') db: Router,
-    @Inject('DocumentApi') document: Router,
     @Inject('ConfigurationApi') configuration: Router,
     @Inject('StatusApi') status: Router) {
 
     this.db = db;
-    this.document = document;
     this.app = app;
     this.log = log;
     this.status = status;
@@ -54,7 +52,6 @@ export class AppMain {
 
   setApiRoutes(): void {
     this.app.use('/db', this.db);
-    this.app.use('/document', this.document);
     this.app.use('/config', this.configuration);
     this.app.use('/status', this.status);
   }

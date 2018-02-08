@@ -23,7 +23,7 @@ const log = new Logger('FormBoxApi');
 
 log.appenders
   .set('stdout', {
-    levels: [ 'debug', 'info', 'trace' ],
+    levels: ['debug', 'info', 'trace'],
     type: 'stdout'
   })
   .set('stderr', {
@@ -31,7 +31,7 @@ log.appenders
       pattern: '%d %p %c %X{user} %m%n',
       type: 'pattern'
     },
-    levels: [ 'fatal', 'error', 'warn' ],
+    levels: ['fatal', 'error', 'warn'],
     type: 'stderr'
   });
 
@@ -46,10 +46,13 @@ const injector = ReflectiveInjector.resolveAndCreate([
   CommonService,
   { provide: 'Logger', useValue: log },
   { provide: 'Application', useValue: app },
-  { provide: 'DatabaseApi', useFactory: DatabaseRouter, deps: [ 'Logger' ] },
-  { provide: 'ConfigurationApi', useFactory: ConfigurationRouter, deps: [ 'Logger', ConfigurationService ] },
-  { provide: 'DocumentApi', useFactory: DocumentRouter, deps: [ 'Logger', CommonService, DocumentService ] },
-  { provide: 'StatusApi', useFactory: StatusRouter, deps: [ 'Logger' ] }
+  { provide: 'DatabaseApi', useFactory: DatabaseRouter, deps: ['Logger'] },
+  {
+    provide: 'ConfigurationApi', useFactory: ConfigurationRouter,
+    deps: ['Logger', CommonService, ConfigurationService, DocumentService]
+  },
+  { provide: 'DocumentApi', useFactory: DocumentRouter, deps: ['Logger', CommonService, DocumentService] },
+  { provide: 'StatusApi', useFactory: StatusRouter, deps: ['Logger'] }
 ]);
 
 // Startet die Anwendung über Dependency Injection.
